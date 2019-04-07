@@ -22,9 +22,24 @@ public class MainActivity extends AppCompatActivity implements SendGridResponseC
         setContentView(R.layout.activity_main);
         textView = findViewById(R.id.text);
         SendGrid sendGrid = new SendGrid("Add your api key"); //Replace with your sendgrid api key
-        sendGrid.setSendgridResponseCallbacks(this);
+        sendGrid.setSendgridResponseCallbacks(new SendGridResponseCallback() {
+            @Override
+            public void onMailSendSuccess(SendGrid.Response response) {
+                Toast.makeText(MainActivity.this, response.getMessage(), Toast.LENGTH_LONG).show();
+                Log.e("LOG", "" + response.getCode());
+                textView.setText(String.valueOf(response.getMessage()));
+            }
+
+            @Override
+            public void onMailSendFailed(SendGrid.Response response) {
+                Toast.makeText(MainActivity.this, response.getMessage(), Toast.LENGTH_LONG).show();
+                Log.e("LOG", "" + response.getCode());
+                textView.setText(String.valueOf(response.getCode()));
+            }
+        });
         SendGrid.Email email = new SendGrid.Email().addBcc("olu@olu.com")
-                .addTo("itkalasado@gmail.com", "tolu ma")
+                .addTo("test@gmail.com", "test test")
+                .addCc("ceec@gmail.com")
                 .setSubject("Test test")
                 .setReplyTo("no-reply@gmail.com", "no-reply")
                 .setFrom("ade@tmail.com", "tayo")
