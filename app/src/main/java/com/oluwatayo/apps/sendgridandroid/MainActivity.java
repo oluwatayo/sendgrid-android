@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements SendGridResponseC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView = findViewById(R.id.text);
-        SendGrid sendGrid = new SendGrid(BuildConfig.SendgridKey); //Replace with your sendgrid api key
+        SendGrid sendGrid = new SendGrid("Add your api key"); //Replace with your sendgrid api key
         sendGrid.setSendgridResponseCallbacks(this);
         SendGrid.Email email = new SendGrid.Email().addBcc("olu@olu.com")
                 .addTo("itkalasado@gmail.com", "tolu ma")

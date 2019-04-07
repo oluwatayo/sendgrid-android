@@ -11,15 +11,8 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-
-        debug {
-            buildConfigField 'String', "SendgridKey", Teddinsight_sendgrid_apikey
-            resValue 'string', "sendgrid_key", Teddinsight_sendgrid_apikey
-        }
         release {
             minifyEnabled false
-            buildConfigField 'String', "SendgridKey", Teddinsight_sendgrid_apikey
-            resValue 'string', "sendgrid_key", Teddinsight_sendgrid_apikey
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
