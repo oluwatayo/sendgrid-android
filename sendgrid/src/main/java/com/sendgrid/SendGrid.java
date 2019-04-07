@@ -214,22 +214,21 @@ public class SendGrid {
         okHttpClient.newCall(request.build()).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                handler.post(() -> {
-                    sendGridResponseCallback.onMailSendFailed(new SendGrid.Response(500, e.getLocalizedMessage()));
-                });
+                handler.post(() -> sendGridResponseCallback.onMailSendFailed(new Response(500, e.getLocalizedMessage())));
             }
 
             @Override
-            public void onResponse(Call call, okhttp3.Response response) throws IOException {
+            public void onResponse(Call call, okhttp3.Response response) {
                 handler.post(() -> {
                     try {
                         String res = response.body().string();
-                        Log.e("LOG", "response"+res);
+                        Log.e("LOG", "response" + res);
                         SendGrid.Response sendgridResponse = new Response(response.code(), res);
                         if (String.valueOf(sendgridResponse.code).startsWith("2"))
                             sendGridResponseCallback.onMailSendSuccess(sendgridResponse);
+                        else
+                            sendGridResponseCallback.onMailSendFailed(sendgridResponse);
 
-//                       sendGridResponseCallback.onMailSendSuccess(sendgridResponse);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements SendGridResponseC
     public void onMailSendSuccess(SendGrid.Response response) {
         Toast.makeText(this, response.getMessage(), Toast.LENGTH_LONG).show();
         Log.e("LOG", "" + response.getCode());
-        textView.setText(String.valueOf(response.getCode()));
+        textView.setText(String.valueOf(response.getMessage()));
     }
 
 
